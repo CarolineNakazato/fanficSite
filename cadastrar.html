@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-		<title>Login</title>
+		<title>Cadastrar</title>
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -14,14 +14,66 @@
 				$( ".widget input[type=submit], .widget a, .widget button" ).button();
 			} );
 		</script>
+		
+		<style>
+			body {
+    background: url(https://cdn.wallpapersafari.com/28/45/hFJubS.png) no-repeat center bottom fixed;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+	background-color: #ffe6e9;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+  background-color: #ffe6eb;
+}
+
+input[type=text]:focus {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+  background-color: #e6ffff;
+}
+
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+  background-color: #ffe6eb;
+}
+input[type=password]:focus {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+  background-color: #e6ffff;
+}
+
+		</style>
 	</head>
 	<body>
 	
 		<form action="/usuariocadastrado.html" method="POST">
 			<div>
-				<b>Usuário:</b><input type="text" id="nome" name="nome" required></br></br>
-				<b>Senha:</b><input type="password" id="senha" name="senha" required></br></br>
-				<b>Email:</b><input type="text" id="email" name="email" required></br></br>
+				<b><span class="w3-text-black" style="text-shadow:0.5px 0.5px 0 #444">Usuário:</span></b><input type="text" placeholder="Pedro" id="nome" name="nome" required></br></br>
+				<b><span class="w3-text-black" style="text-shadow:0.5px 0.5px 0 #444">Senha:</span></b><input type="password" placeholder="123" id="senha" name="senha" required></br></br>
+				<b><span class="w3-text-black" style="text-shadow:0.5px 0.5px 0 #444">Email:</span></b><input type="text" placeholder="pedro@gmail.com" id="email" name="email" required></br></br>
 								
 				<input class="ui-button ui-widget ui-corner-all" type="submit" value="Cadastrar">
 			</div>

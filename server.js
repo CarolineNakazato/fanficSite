@@ -86,13 +86,28 @@ app.post('/usuariocadastrado.html', function(req, res) {
 	function(err, db) {
 		if (err) throw err;
 		var dbo = db.db("user");
-		dbo.collection("usuarios").insertOne(data,
-		function(err, result) {
-			if (err) throw err;
-			db.close();
-				res.sendFile(path.join(__dirname+'/index.html'));
+		
+		dbo.collection("usuarios").findOne({email: email}, 
+			function(err, result) {
+				if (err) throw err;
+				if (result!=null){
+					db.close();
+					res.sendFile(path.join(__dirname+'/cadastrar.html'));
+				}else{
+					dbo.collection("usuarios").insertOne(data,
+					function(err, result) {
+						if (err) throw err;
+						db.close();
+						res.sendFile(path.join(__dirname+'/index.html'));
 
-		});
+					});
+				}
+				
+			});
+		
+		
+		
+		
 	});
 });
 
@@ -107,25 +122,31 @@ app.post('/portal.html', function(req, res) {
 		function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("user");
-			  dbo.collection("usuarios").findOne({nome: nome}, 
-			  function(err, result) {
+			dbo.collection("usuarios").findOne({nome: nome}, 
+			function(err, result) {
 				if (err) throw err;
-				console.log(result.senha);
-				if (result.senha==senha){
-					db.close();
-					res.sendFile(path.join(__dirname+'/home.html'));
-				}else{
+				if (result==null){
 					db.close();
 					res.sendFile(path.join(__dirname+'/index.html'));
+				}else{
+					console.log(result);
+					if (result.senha==senha){
+						db.close();
+						res.sendFile(path.join(__dirname+'/home.html'));
+					}else{
+						db.close();
+						res.sendFile(path.join(__dirname+'/index.html'));
+					}
 				}
+				
 			});
 			
 		});
 });
 
-app.get('/sair', function(req, res) {
+app.get('/sair.html', function(req, res) {
 	req.session.destroy(function() {
-		res.send("Sessão finalizada!");
+		//res.send("Sessão finalizada!");
 		res.sendFile(path.join(__dirname+'/index.html'));
 	});
 });
@@ -147,7 +168,7 @@ app.get('/publicar.html', function(req, res) {
 	res.sendFile(path.join(__dirname+'/publicar.html'));
 });
 
-app.get('/listar.html', function(req, res) {
+/**app.get('/listar.html', function(req, res) {
 	//res.end((new Date()).toGMTString());
 	req.session.views++;
 	MongoClient.connect(url, MONGO_CONFIG,
@@ -157,13 +178,20 @@ app.get('/listar.html', function(req, res) {
 			  dbo.collection("historias").findOne({titulo: titulo}, 
 			  function(err, result) {
 				if (err) throw err;
+				if (result==null){
+					db.close();
+					res.sendFile(path.join(__dirname+'/buscar.html'));
+				}else{
 					db.close();
 					res.end("<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>Listar</title><link rel='stylesheet' href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'><script src='https://code.jquery.com/jquery-1.12.4.js'></script><script src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script><script>$( function() {$( '#accordion' ).accordion();} );</script></head><body><div id='accordion'><h3>"+ result.titulo+"</h3><div><p>"+ result.categoria+"</br>"+result.sinopse+"</p></div><h3>Texto</h3><div><p>"+result.texto+ "</p></div></body></html>");
 					console.log(result);
+				}
 			});
 			
 		});
 });
+cor salmao f18973
+**/
 
 app.post('/buscarHistoria.html', function(req, res) {
 	req.session.views++;
@@ -175,9 +203,14 @@ app.post('/buscarHistoria.html', function(req, res) {
 			  dbo.collection("historias").findOne({titulo: titulo}, 
 			  function(err, result) {
 				if (err) throw err;
+				if (result==null){
 					db.close();
-					res.end("<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>Listar</title><link rel='stylesheet' href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'><script src='https://code.jquery.com/jquery-1.12.4.js'></script><script src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script><script>$( function() {$( '#accordion' ).accordion({collapsible: true}); $( '.widget input[type=submit], .widget a, .widget button').button();} );</script></head><body><div id='accordion'><h3>"+ result.titulo+"</h3><div><p>"+ result.categoria+"</br>"+result.sinopse+"</p></div><h3>Texto</h3><div><p>"+result.texto+ "</p></div><a class='ui-button ui-widget ui-corner-all' href='/comentar.html'>Comentar</a></body></html>");
+					res.sendFile(path.join(__dirname+'/buscar.html'));
+				}else{
+					db.close();
+					res.end("<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>Listar</title><link rel='stylesheet' href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'><script src='https://code.jquery.com/jquery-1.12.4.js'></script><script src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script><script>$( function() {$( '#accordion' ).accordion({collapsible: true}); $( '.widget input[type=submit], .widget a, .widget button').button();} );</script><style>body {background: url(https://cdn.wallpapersafari.com/28/45/hFJubS.png) no-repeat center bottom fixed;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;background-color: #ffe6e9;}</style></head><body><div id='accordion'><h3>"+ result.titulo+"</h3><div><p>Categoria:</br>&emsp;"+ result.categoria+"</br></br>Sinopse:</br>&emsp;"+result.sinopse+"</p></div><h3>Texto</h3><div><p>"+result.texto+ "</p></div><a class='ui-button ui-widget ui-corner-all' href='/comentar.html'>Comentar</a></body></html>");
 					console.log(result);
+				}
 			});
 			
 		});
@@ -191,7 +224,10 @@ app.post('/publicarHistoria.html', function(req, res) {
 	var categoria =req.body.categoria; 
 	var sinopse = req.body.sinopse; 
 	var texto = req.body.texto; 
-	
+	//console.log(texto);
+	sinopse = sinopse.replace(/(?:\r\n|\r|\n)/g, '<br />');
+	texto = texto.replace(/(?:\r\n|\r|\n)/g, '<br />');
+	//console.log(texto);
 	var data = { 
 		"titulo": titulo, 
 		"categoria":categoria, 
@@ -203,13 +239,22 @@ app.post('/publicarHistoria.html', function(req, res) {
 	function(err, db) {
 		if (err) throw err;
 		var dbo = db.db("user");
-		dbo.collection("historias").insertOne(data,
-		function(err, result) {
+		
+		dbo.collection("historias").findOne({titulo: titulo}, function(err, result) {
 			if (err) throw err;
-			db.close();
-				res.sendFile(path.join(__dirname+'/home.html'));
+			if (result!=null){
+				db.close();
+				res.sendFile(path.join(__dirname+'/publicar.html'));
+			}else{
+				dbo.collection("historias").insertOne(data,function(err, result) {
+					if (err) throw err;
+					db.close();
+					res.sendFile(path.join(__dirname+'/home.html'));
 
+				});
+			}				
 		});
+		
 	});
 });
 
