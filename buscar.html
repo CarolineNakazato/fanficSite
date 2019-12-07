@@ -1,0 +1,27 @@
+<html>
+	<head>
+	<title>buscar</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">	
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		
+		<script>
+			$( function() {
+				$( ".widget input[type=submit], .widget a, .widget button" ).button();
+			} );
+		</script>
+	</head>
+	<body>
+		<h1>Buscar História</h1>
+		
+		<form action="/buscarHistoria.html" method="POST">
+			<label class="label">Título:</label>
+			<input type="text" class="text" id = "titulo" name="titulo"></input></br>
+			
+			</br>
+			<button class="ui-button ui-widget ui-corner-all" type="submit">buscar</button>
+		</form>
+
+	</body>
+</html>
