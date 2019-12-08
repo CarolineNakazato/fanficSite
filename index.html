@@ -12,17 +12,26 @@
 			$( function() {
 				$( ".widget input[type=submit], .widget a, .widget button" ).button();
 			} );
+			
+			document.getElementById("myForm").addEventListener("submit", myFunction);
+
+			function myFunction() {
+				if (typeof(Storage) !== "undefined") {
+					//alert("1 "+document.getElementById("nome").value); 
+					sessionStorage.setItem("nome", document.getElementById("nome").value);
+				}
+			}
 		</script>
+
 		<style>
 			body {
-    background: url(https://cdn.wallpapersafari.com/28/45/hFJubS.png) no-repeat center bottom fixed;
-
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-	background-color: #ffe6e9;
-}
+				background: url(https://cdn.wallpapersafari.com/28/45/hFJubS.png) no-repeat center bottom fixed;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+				background-color: #ffe6e9;
+			}
 
 input[type=text] {
   width: 100%;
@@ -68,13 +77,13 @@ input[type=password]:focus {
 	</head>
 	<body>
 	
-		<form action="/portal.html" method="POST">
+		<form id="myForm" action="/portal.html" method="POST" onsubmit="myFunction()">
 			<div>
 				<b><span class="w3-text-black" style="text-shadow:0.5px 0.5px 0 #444">Usuário:</span></b><input type="text" placeholder="Pedro" id="nome" name="nome" required></br></br>
 				<b><span class="w3-text-black" style="text-shadow:0.5px 0.5px 0 #444">Senha:</span></b><input type="password" placeholder="123" id="senha" name="senha" required></br></br>
 								
-				<input class="ui-button ui-widget ui-corner-all" type="submit" value="Logar">
-				<a class="ui-button ui-widget ui-corner-all" id="link" href="/cadastrar.html">Cadastrar</a>
+				<input class="ui-button ui-widget ui-corner-all" id="login" name="login" type="submit" value="Logar">
+				<a class="ui-button ui-widget ui-corner-all" href="/cadastrar.html">Cadastrar</a>
 			</div>
 		</form>
 		</br>

@@ -10,10 +10,18 @@
 			$( function() {
 				$( ".widget input[type=submit], .widget a, .widget button" ).button();
 			} );
+			
+			function myFunction() {
+				if (typeof(Storage) !== "undefined") {
+					var valor = sessionStorage.getItem("nome");
+					document.getElementById("demo").value = valor;
+					//alert(valor); //exibe o valor armazenado
+				}
+			}
+			
 		</script>
 		
 		<style>
-
 .label {
 				border: none;
 				text-align: left;
@@ -85,12 +93,16 @@ textarea {
 
 		</style>
 	</head>
-	<body>
+	<body onLoad="myFunction()">
 	</br>
 	</br>
 		<h1>Publicar Nova História</h1>
 		
 		<form action="/publicarHistoria.html" method="POST">
+			<label class="label">Autor:</label> 
+			<input type="text" class="text" id = "demo" name="demo" readonly></input>
+			</br>
+			</br>
 			<label class="label">Título:</label>
 			<input type="text" class="text" placeholder="Digite o título da história" id = "titulo" name="titulo" required></input></br>
 			
@@ -102,7 +114,7 @@ textarea {
 			
 			<label class="label">Texto:</label>
 			<textarea rows="4" cols="50" placeholder="Digite o texto da história"  id="texto" name="texto" required></textarea></br>
-			
+
 			<input class="ui-button ui-widget ui-corner-all" type="submit" value="Publicar">
 
 		</form>
