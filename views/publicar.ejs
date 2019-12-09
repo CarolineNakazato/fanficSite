@@ -1,0 +1,113 @@
+<html>
+	<head>
+	<title>Publicar</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">	
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		
+		<script>
+			$( function() {
+				$( ".widget input[type=submit], .widget a, .widget button" ).button();
+			} );
+		</script>
+		
+		<style>
+
+.label {
+				border: none;
+				text-align: left;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 20px;
+				margin: 4px 2px;
+				cursor: pointer;
+				width: 60px;
+				font-weight: bold;
+			}
+			
+			body {
+    background: url(https://cdn.wallpapersafari.com/28/45/hFJubS.png) no-repeat center bottom fixed;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+	background-color: #ffe6e9;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+  background-color: #ffe6eb;
+}
+
+input[type=text]:focus {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+  background-color: #e6ffff;
+}
+
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+  background-color: #ffe6eb;
+}
+input[type=password]:focus {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+  background-color: #e6ffff;
+}
+textarea {
+				resize: none;
+ 				overflow-y: scroll;
+				background-color: #ffe6eb;
+				width: 100%;
+				padding: 12px 20px;
+				margin: 8px 0;
+			}
+
+		</style>
+	</head>
+	<body>
+	</br>
+	</br>
+		<h1>Publicar Nova História</h1>
+
+		<form action="/publicarHistoria.html" method="POST">
+			<label class="label">Autor: </label> <label class="label" id = "nome" name="nome" ><%= nome %></label>
+			</br>
+			<label class="label">Título:</label>
+			<input type="text" class="text" placeholder="Digite o título da história" id = "titulo" name="titulo" required></input></br>
+			
+			<label class="label">Categoria:</label>
+			<input type="text" class="text" placeholder="Digite a categoria da história" id = "categoria" name="categoria" required></input></br>
+			
+			<label class="label">Sinopse:</label>
+			<textarea rows="4" cols="50" placeholder="Digite a sinopse da história"  id="sinopse" name="sinopse" required></textarea></br>
+			
+			<label class="label">Texto:</label>
+			<textarea rows="4" cols="50" placeholder="Digite o texto da história"  id="texto" name="texto" required></textarea></br>
+			
+			<input class="ui-button ui-widget ui-corner-all" type="submit" value="Publicar">
+
+		</form>
+
+	</body>
+</html>
